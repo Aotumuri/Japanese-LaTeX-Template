@@ -1,0 +1,19 @@
+{
+  "name": "paper-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Minimal Japanese LaTeX paper template using upLaTeX, dvipdfmx, and latexmk.",
+  "scripts": {
+    "setup:hooks": "git config core.hooksPath .githooks",
+    "format": "node scripts/normalize-punctuation.js",
+    "check:punctuation": "node scripts/normalize-punctuation.js --check",
+    "check:todo": "node scripts/check-todo.js",
+    "check": "npm run check:punctuation && npm run check:todo && npm run build",
+    "build": "npm run format && latexmk -norc -r latexmkrc src/main.tex",
+    "open": "npm run build && node scripts/open-pdf.js",
+    "watch": "npm run format && latexmk -norc -r latexmkrc -pvc src/main.tex",
+    "clean": "node scripts/clean.js",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "devDependencies": {}
+}

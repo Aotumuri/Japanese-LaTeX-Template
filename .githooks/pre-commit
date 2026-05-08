@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+tmp_dir="${TMPDIR:-/tmp}"
+before_diff="$(mktemp "$tmp_dir/pre-commit-before.XXXXXX")"
+after_diff="$(mktemp "$tmp_dir/pre-commit-after.XXXXXX")"
+
+cleanup() {
+  rm -f "$before_diff" "$after_diff"
+}
+trap cleanup EXIT HUP INT TERM
+
+git diff -- src > "$before_diff"
+npm run format
+git diff -- src > "$after_diff"
+
+if ! cmp -s "$before_diff" "$after_diff"; then
+  echo "npm run format changed files under src/."
+  echo "Review the changes, run git add, then commit again."
+  git diff --name-only -- src
+  exit 1
+fi
+
+npm run check:punctuation

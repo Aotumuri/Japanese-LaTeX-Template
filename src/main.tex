@@ -1,0 +1,42 @@
+\documentclass[uplatex,dvipdfmx,twocolumn]{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx,bookmarks=true,bookmarksnumbered=true]{hyperref}
+\usepackage{pxjahyper}
+\usepackage{paper}
+
+\graphicspath{{resources/figures/}}
+
+\title{日本語論文テンプレート}
+\author{著者名}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+本テンプレートは，日本語で二段組の論文を書き始めるための最小構成を示す．
+本文は章ごとに分割し，図表や参考文献を追加しやすい形にしている．
+\end{abstract}
+
+\keywords{日本語LaTeX，二段組，テンプレート}
+
+% 図を挿入する例:
+% \begin{figure}[tb]
+%   \centering
+%   \includegraphics[width=\linewidth]{sample-figure}
+%   \caption{図のキャプション}
+%   \label{fig:sample}
+% \end{figure}
+
+\input{src/sections/01_intro}
+\input{src/sections/02_related_work}
+\input{src/sections/03_method}
+\input{src/sections/04_experiment}
+\input{src/sections/05_conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{src/references}
+
+\end{document}

@@ -1,0 +1,55 @@
+{
+  "todohighlight.isEnable": true,
+  "todohighlight.isCaseSensitive": true,
+  "todohighlight.keywords": [
+    {
+      "text": "% TODO",
+      "color": "#111827",
+      "backgroundColor": "#facc15",
+      "overviewRulerColor": "#facc15",
+      "border": "2px solid #f97316",
+      "borderRadius": "3px",
+      "fontWeight": "bold"
+    },
+    {
+      "text": "% FIXME",
+      "color": "#ffffff",
+      "backgroundColor": "#dc2626",
+      "overviewRulerColor": "#dc2626",
+      "border": "2px solid #7f1d1d",
+      "borderRadius": "3px",
+      "fontWeight": "bold"
+    }
+  ],
+  "todo-tree.general.tags": [
+    "TODO",
+    "FIXME"
+  ],
+  "todo-tree.regex.regex": "^\\s*%\\s+($TAGS)\\b",
+  "todo-tree.highlights.enabled": true,
+  "todo-tree.highlights.defaultHighlight": {
+    "type": "line",
+    "gutterIcon": true,
+    "icon": "alert",
+    "foreground": "#111827",
+    "background": "#facc15",
+    "opacity": 80,
+    "rulerColour": "#facc15"
+  },
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "icon": "checklist",
+      "iconColour": "#facc15",
+      "foreground": "#111827",
+      "background": "#facc15",
+      "rulerColour": "#facc15"
+    },
+    "FIXME": {
+      "icon": "flame",
+      "iconColour": "#dc2626",
+      "foreground": "#ffffff",
+      "background": "#dc2626",
+      "rulerColour": "#dc2626"
+    }
+  }
+}
