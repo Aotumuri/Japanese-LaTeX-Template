@@ -1,0 +1,42 @@
+\documentclass[uplatex,dvipdfmx,twocolumn]{jsarticle}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx,bookmarks=true,bookmarksnumbered=true]{hyperref}
+\usepackage{pxjahyper}
+\usepackage{paper}
+
+\graphicspath{{paper/figures/}{paper.example/figures/}}
+
+\newcommand{\paperinput}[1]{%
+  \InputIfFileExists{paper/#1}{}{%
+    \input{paper.example/#1}%
+  }%
+}
+
+\paperinput{meta}
+
+\begin{document}
+
+\maketitle
+
+\paperinput{abstract}
+\paperinput{keywords}
+
+% 図を挿入する例:
+% \begin{figure}[tb]
+%   \centering
+%   \includegraphics[width=\linewidth]{sample-figure}
+%   \caption{図のキャプション}
+%   \label{fig:sample}
+% \end{figure}
+
+\paperinput{body}
+
+\bibliographystyle{unsrt}
+\IfFileExists{paper/references.bib}{%
+  \bibliography{paper/references}%
+}{%
+  \bibliography{paper.example/references}%
+}
+
+\end{document}

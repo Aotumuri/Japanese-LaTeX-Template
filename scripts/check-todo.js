@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
-const srcDir = path.join(rootDir, 'src');
+const sourceDirs = ['paper', 'paper.example', 'template'].map((dir) => path.join(rootDir, dir));
 const targetExtensions = new Set(['.tex', '.bib', '.sty']);
 const todoPattern = /^\s*%\s+(TODO|FIXME)\b/;
 
@@ -31,21 +31,23 @@ function collectFiles(dir) {
 
 const findings = [];
 
-for (const filePath of collectFiles(srcDir)) {
-  const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
+for (const sourceDir of sourceDirs) {
+  for (const filePath of collectFiles(sourceDir)) {
+    const lines = fs.readFileSync(filePath, 'utf8').split(/\r?\n/);
 
-  lines.forEach((line, index) => {
-    const match = line.match(todoPattern);
+    lines.forEach((line, index) => {
+      const match = line.match(todoPattern);
 
-    if (match) {
-      findings.push({
-        file: path.relative(rootDir, filePath),
-        line: index + 1,
-        term: match[1].toUpperCase(),
-        text: line.trim()
-      });
-    }
-  });
+      if (match) {
+        findings.push({
+          file: path.relative(rootDir, filePath),
+          line: index + 1,
+          term: match[1].toUpperCase(),
+          text: line.trim()
+        });
+      }
+    });
+  }
 }
 
 if (findings.length === 0) {

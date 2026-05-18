@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
-const srcDir = path.join(rootDir, 'src');
+const sourceDirs = ['paper', 'paper.example', 'template'].map((dir) => path.join(rootDir, dir));
 const checkOnly = process.argv.includes('--check');
 const targetExtensions = new Set(['.tex', '.bib', '.sty']);
 
@@ -35,18 +35,20 @@ function normalize(content) {
 
 const changedFiles = [];
 
-for (const filePath of collectFiles(srcDir)) {
-  const content = fs.readFileSync(filePath, 'utf8');
-  const normalized = normalize(content);
+for (const sourceDir of sourceDirs) {
+  for (const filePath of collectFiles(sourceDir)) {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const normalized = normalize(content);
 
-  if (content === normalized) {
-    continue;
-  }
+    if (content === normalized) {
+      continue;
+    }
 
-  changedFiles.push(path.relative(rootDir, filePath));
+    changedFiles.push(path.relative(rootDir, filePath));
 
-  if (!checkOnly) {
-    fs.writeFileSync(filePath, normalized);
+    if (!checkOnly) {
+      fs.writeFileSync(filePath, normalized);
+    }
   }
 }
 
