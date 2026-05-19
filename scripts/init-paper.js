@@ -2,28 +2,24 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
-const sourceDir = path.join(rootDir, 'paper.example');
+const templateDir = path.join(rootDir, 'template');
 const targetDir = path.join(rootDir, 'paper');
+const fileNames = ['main.tex', 'references.bib'];
+const directoryNames = ['figures', 'tables'];
 
-function copyDirectory(source, target) {
-  fs.mkdirSync(target, { recursive: true });
+fs.mkdirSync(targetDir, { recursive: true });
 
-  for (const entry of fs.readdirSync(source, { withFileTypes: true })) {
-    const sourcePath = path.join(source, entry.name);
-    const targetPath = path.join(target, entry.name);
+for (const fileName of fileNames) {
+  const sourcePath = path.join(templateDir, fileName);
+  const targetPath = path.join(targetDir, fileName);
 
-    if (entry.isDirectory()) {
-      copyDirectory(sourcePath, targetPath);
-      continue;
-    }
-
-    if (!entry.isFile() || fs.existsSync(targetPath)) {
-      continue;
-    }
-
+  if (!fs.existsSync(targetPath)) {
     fs.copyFileSync(sourcePath, targetPath);
   }
 }
 
-copyDirectory(sourceDir, targetDir);
-console.log('Initialized paper files under paper/.');
+for (const directoryName of directoryNames) {
+  fs.mkdirSync(path.join(targetDir, directoryName), { recursive: true });
+}
+
+console.log('Initialized paper files from template/ under paper/.');

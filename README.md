@@ -26,12 +26,16 @@ npm run clean
 ## テンプレート更新と論文本体の分離
 
 このリポジトリは，更新元と衝突しやすい論文本体を `paper/` に分離します。
+ただし，本文を細かいtexファイルに分ける構成にはしません。
+初期テンプレートは `template/` に集約し，`npm run init:paper` でローカル編集用の `paper/` にコピーします。
 
-- `template/`: 元repoから更新を取り込むテンプレート側の入口とスタイル
-- `paper.example/`: `paper/` を作るための初期サンプル
-- `paper/`: 利用者が実際に書く論文本体
+- `template/main.tex`: 初期コピー元の単一texテンプレート
+- `template/references.bib`: 初期コピー元のBibTeXファイル
+- `template/styles/`: 元repoから更新を取り込むスタイル
+- `paper/main.tex`: 利用者が実際に編集する論文本体
+- `paper/references.bib`: 利用者が実際に編集する参考文献
 
-`npm run init:paper` は `paper.example/` から `paper/` にファイルをコピーします。
+`npm run init:paper` は `template/main.tex` と `template/references.bib` を `paper/` にコピーし，`paper/figures/` と `paper/tables/` を作成します。
 既に存在するファイルは上書きしません。
 
 `paper/` は `.gitignore` に入っています。
@@ -54,26 +58,14 @@ paper-template/
 ├─ latexmkrc
 ├─ template/
 │  ├─ main.tex
+│  ├─ references.bib
 │  └─ styles/
 │     └─ paper.sty
-├─ paper.example/
-│  ├─ meta.tex
-│  ├─ abstract.tex
-│  ├─ keywords.tex
-│  ├─ body.tex
-│  ├─ sections/
-│  ├─ figures/
-│  ├─ tables/
-│  └─ references.bib
 ├─ paper/
-│  ├─ meta.tex
-│  ├─ abstract.tex
-│  ├─ keywords.tex
-│  ├─ body.tex
-│  ├─ sections/
+│  ├─ main.tex
+│  ├─ references.bib
 │  ├─ figures/
-│  ├─ tables/
-│  └─ references.bib
+│  └─ tables/
 ├─ scripts/
 └─ build/
 ```
@@ -134,7 +126,7 @@ npm run rebuild
 ## チェックと整形
 
 論文ソース内の `、` と `。` は，`，` と `．` に自動変換できます。
-対象は `paper/`，`paper.example/`，`template/` 以下の `.tex`，`.bib`，`.sty` です。
+対象は `paper/`，`template/` 以下の `.tex`，`.bib`，`.sty` です。
 
 ```sh
 npm run format
@@ -170,21 +162,16 @@ hookはコミット前に `npm run format` を実行します。
 
 ## 章を追加する方法
 
-1. `paper/sections/` に章ファイルを追加します。
-   例: `paper/sections/06_discussion.tex`
-2. `paper/body.tex` に読み込みを追加します。
-
-```tex
-\paperinput{sections/06_discussion}
-```
+`paper/main.tex` に `\section{...}` を追加します。
+章ファイルを増やす必要はありません。
 
 ## 図を追加する方法
 
 図ファイルを `paper/figures/` に置きます。
-`template/main.tex` では次の設定を入れているため，ファイル名だけで読み込めます。
+`paper/main.tex` では次の設定を入れているため，ファイル名だけで読み込めます。
 
 ```tex
-\graphicspath{{paper/figures/}{paper.example/figures/}}
+\graphicspath{{paper/figures/}{template/figures/}}
 ```
 
 本文では次のように使います。

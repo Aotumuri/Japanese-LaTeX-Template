@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
-const sourceDirs = ['paper', 'paper.example', 'template'].map((dir) => path.join(rootDir, dir));
+const sourceDirs = ['paper', 'template'].map((dir) => path.join(rootDir, dir));
 const checkOnly = process.argv.includes('--check');
 const targetExtensions = new Set(['.tex', '.bib', '.sty']);
 

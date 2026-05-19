@@ -5,22 +5,44 @@
 \usepackage{pxjahyper}
 \usepackage{paper}
 
-\graphicspath{{paper/figures/}{paper.example/figures/}}
+\graphicspath{{paper/figures/}{template/figures/}}
 
-\newcommand{\paperinput}[1]{%
-  \InputIfFileExists{paper/#1}{}{%
-    \input{paper.example/#1}%
-  }%
-}
-
-\paperinput{meta}
+\title{日本語論文テンプレート}
+\author{著者名}
+\date{\today}
 
 \begin{document}
 
 \maketitle
 
-\paperinput{abstract}
-\paperinput{keywords}
+\begin{abstract}
+本テンプレートは，日本語で二段組の論文を書き始めるための最小構成を示す．
+本文，概要，キーワードを単一のtexファイルにまとめ，ファイルが増えすぎない形にしている．
+\end{abstract}
+
+\keywords{日本語LaTeX，二段組，テンプレート}
+
+\section{はじめに}
+
+日本語で論文を書くときは，本文，図表，参考文献を分けて管理すると見通しがよくなる．
+本テンプレートでは，upLaTeXとdvipdfmxを使い，二段組の論文をすぐに書き始められる構成にしている．
+
+参考文献の引用例として，架空の関連資料を引用する\cite{sample2026template}．
+
+\section{関連研究}
+
+関連研究では，対象分野の既存手法や既存システムを整理する．
+単に文献を列挙するのではなく，本研究との違いや位置づけが分かるように記述する．
+
+\section{提案手法}
+
+提案手法では，問題設定，前提条件，手法の流れを順に説明する．
+必要に応じて数式，疑似コード，図を追加し，読者が再現できる粒度で書く．
+
+\section{実験}
+
+実験では，評価環境，データセット，評価指標，結果を記述する．
+表は \texttt{paper/tables/} に元データを置き，本文では必要な要約を示すと管理しやすい．
 
 % 図を挿入する例:
 % \begin{figure}[tb]
@@ -30,13 +52,16 @@
 %   \label{fig:sample}
 % \end{figure}
 
-\paperinput{body}
+\section{おわりに}
+
+本稿では，日本語LaTeX論文を作成するための最小テンプレートを示した．
+今後は，投稿先の指定に応じてスタイルファイルや章構成を調整する．
 
 \bibliographystyle{unsrt}
 \IfFileExists{paper/references.bib}{%
   \bibliography{paper/references}%
 }{%
-  \bibliography{paper.example/references}%
+  \bibliography{template/references}%
 }
 
 \end{document}

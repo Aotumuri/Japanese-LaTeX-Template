@@ -4,7 +4,7 @@ node_modules/
 # Build outputs
 build/
 
-# User-owned paper sources copied from paper.example/
+# User-owned paper sources copied from template/
 paper/
 
 # LaTeX auxiliary files
