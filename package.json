@@ -6,13 +6,14 @@
   "scripts": {
     "setup:hooks": "git config core.hooksPath .githooks",
     "init:paper": "node scripts/init-paper.js",
+    "init:paper:force": "node scripts/init-paper.js --force",
     "format": "node scripts/normalize-punctuation.js",
     "check:punctuation": "node scripts/normalize-punctuation.js --check",
     "check:todo": "node scripts/check-todo.js",
     "check": "npm run check:punctuation && npm run check:todo && npm run build",
-    "build": "npm run init:paper && npm run format && latexmk -norc -r latexmkrc paper/main.tex",
+    "build": "npm run format && latexmk -norc -r latexmkrc paper/main.tex",
     "open": "npm run build && node scripts/open-pdf.js",
-    "watch": "npm run init:paper && npm run format && latexmk -norc -r latexmkrc -pvc paper/main.tex",
+    "watch": "npm run format && latexmk -norc -r latexmkrc -pvc paper/main.tex",
     "clean": "node scripts/clean.js",
     "rebuild": "npm run clean && npm run build"
   },

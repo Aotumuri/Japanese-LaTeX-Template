@@ -13,6 +13,12 @@ npm run open
 
 これで論文用ファイルを `paper/` に作成し，Git hookを有効化し，PDFをビルドして開きます。
 以後は基本的に `paper/` 以下を編集してください。
+`paper/` が既に存在する場合，`npm run init:paper` はエラーで停止します。
+テンプレートから `paper/main.tex` と `paper/references.bib` を上書きしたい場合だけ，次を実行してください。
+
+```sh
+npm run init:paper:force
+```
 
 よく使うコマンドは次の通りです。
 
@@ -36,7 +42,8 @@ npm run clean
 - `paper/references.bib`: 利用者が実際に編集する参考文献
 
 `npm run init:paper` は `template/main.tex` と `template/references.bib` を `paper/` にコピーし，`paper/figures/` と `paper/tables/` を作成します。
-既に存在するファイルは上書きしません。
+`paper/` が既に存在する場合はエラーにします。
+`npm run init:paper:force` はテンプレート由来のファイルを上書きし，`paper/figures/` と `paper/tables/` は存在しなければ作成します。
 
 `paper/` は `.gitignore` に入っています。
 自分の論文リポジトリとして本文もGit管理したい場合は，`.gitignore` から `paper/` を外してください。

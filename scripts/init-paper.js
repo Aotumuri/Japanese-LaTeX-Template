@@ -6,6 +6,21 @@ const templateDir = path.join(rootDir, 'template');
 const targetDir = path.join(rootDir, 'paper');
 const fileNames = ['main.tex', 'references.bib'];
 const directoryNames = ['figures', 'tables'];
+const args = process.argv.slice(2);
+const allowedArgs = new Set(['--force', '-f']);
+const force = args.some((arg) => allowedArgs.has(arg));
+const unknownArgs = args.filter((arg) => !allowedArgs.has(arg));
+
+if (unknownArgs.length > 0) {
+  console.error(`Unknown option: ${unknownArgs.join(', ')}`);
+  console.error('Usage: npm run init:paper or npm run init:paper:force');
+  process.exit(1);
+}
+
+if (fs.existsSync(targetDir) && !force) {
+  console.error('paper/ already exists. Use npm run init:paper:force to overwrite template files.');
+  process.exit(1);
+}
 
 fs.mkdirSync(targetDir, { recursive: true });
 
@@ -13,7 +28,7 @@ for (const fileName of fileNames) {
   const sourcePath = path.join(templateDir, fileName);
   const targetPath = path.join(targetDir, fileName);
 
-  if (!fs.existsSync(targetPath)) {
+  if (force || !fs.existsSync(targetPath)) {
     fs.copyFileSync(sourcePath, targetPath);
   }
 }
