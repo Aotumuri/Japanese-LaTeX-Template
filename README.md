@@ -37,13 +37,14 @@ npm run clean
 
 - `template/main.tex`: 初期コピー元の単一texテンプレート
 - `template/references.bib`: 初期コピー元のBibTeXファイル
-- `template/styles/`: 元repoから更新を取り込むスタイル
+- `template/styles/`: 初期コピー元のスタイル
 - `paper/main.tex`: 利用者が実際に編集する論文本体
 - `paper/references.bib`: 利用者が実際に編集する参考文献
+- `paper/styles/`: 利用者が実際に編集するスタイル
 
-`npm run init:paper` は `template/main.tex` と `template/references.bib` を `paper/` にコピーし，`paper/figures/` と `paper/tables/` を作成します。
+`npm run init:paper` は `template/main.tex`，`template/references.bib`，`template/styles/paper.sty` を `paper/` にコピーし，`paper/figures/` と `paper/tables/` を作成します。
 `paper/` が既に存在する場合はエラーにします。
-`npm run init:paper:force` はテンプレート由来のファイルを上書きし，`paper/figures/` と `paper/tables/` は存在しなければ作成します。
+`npm run init:paper:force` はテンプレート由来のファイルを上書きし，`paper/figures/`，`paper/tables/`，`paper/styles/` は存在しなければ作成します。
 
 `paper/` は `.gitignore` に入っています。
 自分の論文リポジトリとして本文もGit管理したい場合は，`.gitignore` から `paper/` を外してください。
@@ -71,6 +72,8 @@ paper-template/
 ├─ paper/
 │  ├─ main.tex
 │  ├─ references.bib
+│  ├─ styles/
+│  │  └─ paper.sty
 │  ├─ figures/
 │  └─ tables/
 ├─ scripts/
@@ -217,5 +220,5 @@ hookはコミット前に `npm run format` を実行します。
 
 ## スタイルを変更する方法
 
-簡単な見た目や共通マクロは `template/styles/paper.sty` に置いています。
+簡単な見た目や共通マクロは `paper/styles/paper.sty` に置いています。
 投稿先の指定に合わせて余白，見出し，キャプションなどを調整してください。

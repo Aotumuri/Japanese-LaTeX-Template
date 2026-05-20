@@ -5,7 +5,7 @@ const rootDir = path.resolve(__dirname, '..');
 const templateDir = path.join(rootDir, 'template');
 const targetDir = path.join(rootDir, 'paper');
 const fileNames = ['main.tex', 'references.bib'];
-const directoryNames = ['figures', 'tables'];
+const directoryNames = ['figures', 'tables', 'styles'];
 const args = process.argv.slice(2);
 const allowedArgs = new Set(['--force', '-f']);
 const force = args.some((arg) => allowedArgs.has(arg));
@@ -35,6 +35,13 @@ for (const fileName of fileNames) {
 
 for (const directoryName of directoryNames) {
   fs.mkdirSync(path.join(targetDir, directoryName), { recursive: true });
+}
+
+const styleSourcePath = path.join(templateDir, 'styles', 'paper.sty');
+const styleTargetPath = path.join(targetDir, 'styles', 'paper.sty');
+
+if (force || !fs.existsSync(styleTargetPath)) {
+  fs.copyFileSync(styleSourcePath, styleTargetPath);
 }
 
 console.log('Initialized paper files from template/ under paper/.');

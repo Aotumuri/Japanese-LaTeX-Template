@@ -1,4 +1,4 @@
-$ENV{'TEXINPUTS'} = './template/styles//:' . ($ENV{'TEXINPUTS'} || '');
+$ENV{'TEXINPUTS'} = './paper/styles//:./template/styles//:' . ($ENV{'TEXINPUTS'} || '');
 
 $latex = 'uplatex -kanji=utf8 -halt-on-error -interaction=nonstopmode %O %S';
 $bibtex = 'upbibtex %O %B';
